@@ -1,0 +1,93 @@
+pong game
+- obj: destroy all the blocks
+
+- mechanics
+- double ball
+- speed ball
+
+backdrop: grid
+
+paddle:
+when a or d pressed {
+	change x by -10 or 10 until key not pressed
+}
+
+ball:
+int velocity
+
+main game logic
+reset() {
+	set velocity to 5
+	set row1, row2, row3 to 0 // for block generation
+	forever { // doesnt work in function body, movement becomes sporadic and jumps around
+		if on edge, bounce
+		if(touching paddle) {
+		if(random(1, 10) = 1) {
+			// 1 in 10 chance of changing angle
+			if(-90 < direction < 0)
+		} else {
+			point in (180 - direction)
+			}
+		}
+		bounce()
+		move(velocity)
+	}
+}
+	
+// still abit finicky but overall works well.
+bounce() {
+	// best performance so far
+	if(touching block) {
+		if(touching black colour) {
+			// uses a black outline on the left and right of the block to detect left or right edge collision
+			point to -this.direction
+		} else {
+			point to 180 - direction
+		}
+	}
+}
+
+// black outline: 3 wide on left and right, top and bottom 4 rows left normal
+
+
+if(touching block and x < block.x and y == block.y) {
+	// left
+	turn ccw 2d
+} else if(touching block and x > block.x and y == block.y) {
+	// right
+	turn cw 2d
+} else {
+	point to 180 - d
+}
+
+
+when start as clone {
+	resetPos()
+	forever {
+
+	}
+}
+
+
+turn n deg = 180 - d
+
+
+left edge = -direction
+right edge = -direction
+top edge = normal
+botton edge = normal
+
+pseudo code for bounce logic:
+
+// doesnt work
+if((touching block and x < block.x) or (touching block and x > block.x)) {
+	point to -this.direction
+} else if(touching block){
+	point to 180 - direction
+}
+
+
+block generation algo:
+go to (-170 + rowN*32)
+
+wanted to do all colours, but too lazy
